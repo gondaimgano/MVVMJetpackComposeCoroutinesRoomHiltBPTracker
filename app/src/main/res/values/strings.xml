@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">MVVMComposeBPTracker</string>
+    <string name="history">history</string>
+    <string name="new_entry">newentry</string>
+</resources>
