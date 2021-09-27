@@ -88,9 +88,15 @@ dependencies {
 
     //hilt - integrations
     implementation 'androidx.hilt:hilt-navigation-compose:1.0.0-alpha03'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha07'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.4.0-beta01'
 
     //constraint layout with compose
     implementation "androidx.constraintlayout:constraintlayout-compose:1.0.0-beta02"
+    //paging library
+    def paging_version = "3.0.1"
+
+    implementation "androidx.paging:paging-runtime:$paging_version"
+    // optional - Jetpack Compose integration
+    implementation "androidx.paging:paging-compose:1.0.0-alpha12"
 }
 
