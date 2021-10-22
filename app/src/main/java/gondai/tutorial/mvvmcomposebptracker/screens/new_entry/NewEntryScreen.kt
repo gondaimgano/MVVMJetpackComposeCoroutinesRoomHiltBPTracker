@@ -1,5 +1,10 @@
 package gondai.tutorial.mvvmcomposebptracker.screens.new_entry
 
+import android.view.View
+import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -9,8 +14,10 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import gondai.tutorial.mvvmcomposebptracker.R
 import gondai.tutorial.mvvmcomposebptracker.screens.Index
 import gondai.tutorial.mvvmcomposebptracker.ui.components.NumberTextField
 
@@ -101,7 +108,44 @@ fun NewEntryScreen(navController: NavController, model: NewEntryViewModel= hiltV
             .fillMaxWidth()) {
             Column(horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier.padding(all=8.dp)) {
+/*
 
+** Experimetal Interobility
+                AndroidView(
+                    modifier=Modifier.fillMaxWidth().height(50.dp),
+                    factory = {
+
+                      val arrayAdapter=  ArrayAdapter.createFromResource(
+                            it,
+                           R.array.planets_array,
+                            android.R.layout.simple_spinner_item
+                        )
+
+                    Spinner(it).apply {
+                        layoutParams = ViewGroup.LayoutParams(
+                            ViewGroup.LayoutParams.MATCH_PARENT,
+                            ViewGroup.LayoutParams.MATCH_PARENT,
+                        )
+                        adapter=arrayAdapter
+                        onItemSelectedListener=object : AdapterView.OnItemSelectedListener{
+                            override fun onItemSelected(
+                                p0: AdapterView<*>?,
+                                p1: View?,
+                                p2: Int,
+                                p3: Long
+                            ) {
+                               println( p0?.getItemAtPosition(p2))
+
+                            }
+
+                            override fun onNothingSelected(p0: AdapterView<*>?) {
+
+                            }
+
+                        }
+                    }
+                })*/
+                Spacer(modifier = Modifier.padding(all = 8.dp))
                 NumberTextField(
                     value = reading.sys?.toString()?:"",
                     func = {

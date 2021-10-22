@@ -25,7 +25,7 @@ class HistoryViewModel @Inject constructor(
 
     }
 
-    fun update()= viewModelScope.launch {
+    private fun update()= viewModelScope.launch {
 
 
         _uiState.value = HistoryState.Loading

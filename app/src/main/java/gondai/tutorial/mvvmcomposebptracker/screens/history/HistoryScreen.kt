@@ -1,14 +1,17 @@
 package gondai.tutorial.mvvmcomposebptracker.screens.history
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.AddCircle
+import androidx.compose.material.icons.rounded.Menu
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
@@ -21,12 +24,24 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import gondai.tutorial.mvvmcomposebptracker.database.models.Reading
 import gondai.tutorial.mvvmcomposebptracker.screens.Index
+import kotlinx.coroutines.*
 
 
 @Composable
 fun HistoryScreen(navController: NavController, model: HistoryViewModel = hiltViewModel()) {
     val state by model.uiState.collectAsState()
+    val scaffoldState = rememberScaffoldState(drawerState = rememberDrawerState(DrawerValue.Closed),
+    snackbarHostState = SnackbarHostState()
+    )
+
+    val scope = rememberCoroutineScope()
+    val openDrawer = {
+        scope.launch {
+            scaffoldState.drawerState.open()
+        }
+    }
     Scaffold(
+        scaffoldState = scaffoldState,
         topBar = {
             TopAppBar(title = {
                 Text(Index.History.label)
@@ -40,8 +55,39 @@ fun HistoryScreen(navController: NavController, model: HistoryViewModel = hiltVi
                         Icon(Icons.Rounded.AddCircle, contentDescription = null)
                     }
 
-                })
+                },
+            navigationIcon = {
+                IconButton(onClick = {
+                      openDrawer()
+
+
+                }) {
+                    Icon(Icons.Rounded.Menu,contentDescription = null)
+                }
+            })
         },
+
+        drawerContent = {
+            Text("Home",
+            modifier = Modifier.clickable {
+                scope.launch {
+                    scaffoldState.drawerState.close()
+                }
+            })
+            Spacer(modifier = Modifier.padding(8.dp))
+            Text("About",modifier = Modifier.clickable {
+                scope.launch {
+                    scaffoldState.drawerState.close()
+                    scaffoldState.snackbarHostState.showSnackbar("Welcome!")
+                }
+            })
+
+            Spacer(modifier = Modifier.padding(8.dp))
+            Text("Settings")
+        },
+        drawerGesturesEnabled = scaffoldState.drawerState.isOpen
+
+
 
 
         ) {

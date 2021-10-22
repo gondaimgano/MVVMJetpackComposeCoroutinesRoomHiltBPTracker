@@ -27,15 +27,6 @@ class NewEntryViewModel
 
    val reading= MutableStateFlow(Reading(uid = 0))
 
-    private fun tryToExecute(callback:()->Unit){
-        try {
-            callback()
-        }
-        catch (ex:Throwable){
-
-        }
-    }
-
 
     fun confirm()=viewModelScope.launch {
         _uiState.value=NewEntryState.Confirm
@@ -80,6 +71,15 @@ class NewEntryViewModel
     }
     fun onSpO2(sys: String) {
         tryToExecute {  reading.value= reading.value.copy(spO2 = sys.trim().toInt()) }
+    }
+
+    private fun tryToExecute(callback:()->Unit){
+        try {
+            callback()
+        }
+        catch (ex:Throwable){
+
+        }
     }
 
 }
