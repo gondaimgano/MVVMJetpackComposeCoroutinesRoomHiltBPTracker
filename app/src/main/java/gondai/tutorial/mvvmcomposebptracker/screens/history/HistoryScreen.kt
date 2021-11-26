@@ -17,6 +17,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -135,9 +138,11 @@ fun HistoryScreen(navController: NavController, model: HistoryViewModel = hiltVi
     }
 
 }
-
+@Preview(heightDp=80)
 @Composable
-fun CustomListTile(reading: Reading) {
+fun CustomListTile(
+    @PreviewParameter(ReadingPreviewParameterProvider::class)
+    reading: Reading) {
     ConstraintLayout(
         modifier = Modifier
             .fillMaxWidth()
@@ -210,4 +215,18 @@ fun CustomListTile(reading: Reading) {
        }
 
     }
+}
+
+
+
+class ReadingPreviewParameterProvider : PreviewParameterProvider<Reading> {
+    override val values = sequenceOf(
+        Reading(uid = 0).apply {
+            weight = 15
+            dia = 23
+            pulse = 19
+            spO2 = 23
+            sys = 23
+        }
+    )
 }
